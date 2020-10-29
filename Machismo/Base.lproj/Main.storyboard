@@ -148,15 +148,8 @@
                                     <action selector="touchCardButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="MOb-w4-HSx"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Score: 0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="erU-lo-4x7">
-                                <rect key="frame" x="39" y="709" width="313" height="45"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jQv-bK-hyQ">
-                                <rect key="frame" x="38" y="787" width="146" height="41"/>
+                                <rect key="frame" x="20" y="785" width="146" height="41"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" systemColor="systemYellowColor"/>
                                 <state key="normal" title="Restart Game">
@@ -167,7 +160,7 @@
                                 </connections>
                             </button>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="4i6-Li-PRG">
-                                <rect key="frame" x="10" y="637" width="371" height="32"/>
+                                <rect key="frame" x="20" y="731" width="371" height="32"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" systemColor="secondaryLabelColor"/>
                                 <segments>
@@ -179,12 +172,27 @@
                                     <action selector="cardMatchModeChanged:" destination="BYZ-38-t0r" eventType="valueChanged" id="iWH-FW-iMp"/>
                                 </connections>
                             </segmentedControl>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Last move:" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bvK-Yx-dKh">
+                                <rect key="frame" x="33" y="616" width="312" height="107"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Score: 0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="erU-lo-4x7">
+                                <rect key="frame" x="33" y="563" width="313" height="45"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" red="0.0" green="0.56284224989999998" blue="0.31881666180000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
                     <connections>
                         <outlet property="cardMatchModeSegmentControl" destination="4i6-Li-PRG" id="Pjq-Gb-ec7"/>
+                        <outlet property="lastMoveLable" destination="bvK-Yx-dKh" id="apS-hp-JIe"/>
                         <outlet property="scoreLable" destination="erU-lo-4x7" id="Bzn-Bv-zD2"/>
                         <outletCollection property="cardButtons" destination="LbC-Nu-eoh" id="bmO-tq-rXn"/>
                         <outletCollection property="cardButtons" destination="EUL-kS-0FY" id="zfl-iH-E8F"/>

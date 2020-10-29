@@ -66,54 +66,69 @@ static const int COST_TO_CHOOSE = 1;
     return index < [self.cards count] ? self.cards[index] : nil;
 }
 
+- (NSString *)detailedScore:(NSInteger)score usingCards:(NSArray *)cards
+          usingReason:(NSString*) reason{
+    NSMutableString *detailedScore = [[NSMutableString alloc] init];
+    [detailedScore appendString: [NSString stringWithFormat:@" score %ld", score]];
+    if ([cards count]){
+        [detailedScore appendString:@" for cards"];
+        for (Card* card in cards){
+            [detailedScore appendString: [NSString stringWithFormat:@" %@", card.contents]];
+        }
+        [detailedScore appendString: [NSString stringWithFormat:@" because %@.\n", reason]];
+    }
+    
+    return detailedScore;
+    
+}
 
 -(void)chooseCardAtIndex:(NSUInteger)index{
-    NSMutableString *scoreDetails;
-//    for (Card *otherCard in self.cards){
-//        NSLog(@"%@", [NSString stringWithFormat:@"chooseCardAtIndex-1.1 %@ chosen %d matched %d", otherCard.contents, otherCard.chosen, otherCard.matched]);
-//    }
+    
+    self.lastMoveScoreDetails = @"";
     Card *card = [self cardAtIndex:index];
     if (!card.isMatched){
         if (card.isChosen){
             card.chosen =  NO;
         } else {
-//            NSLog(@"chooseCardAtIndex0");
             NSMutableArray *otherChosenCards = [[NSMutableArray alloc] init];
             NSInteger numberOfChosenCards = 1; // the current card is considerd as choshen
-//            NSLog(@"chooseCardAtIndex1");
             // match against other cards
             
             for (Card *otherCard in self.cards){
-//                NSLog(@"%@", [NSString stringWithFormat:@"chooseCardAtIndex1.1 %@", otherCard.contents]);
                 if (!otherCard.isMatched && otherCard.isChosen){
-//                    NSLog(@"%@", [NSString stringWithFormat:@"chooseCardAtIndex1.2 %@ chosen %d matched %d", otherCard.contents, otherCard.chosen, otherCard.matched]);
                     numberOfChosenCards++;
-//                    NSLog(@"chooseCardAtIndex1.3");
                     [otherChosenCards addObject:otherCard];
-//                    NSLog(@"%@", [NSString stringWithFormat:@"chooseCardAtIndex1.4 numberOfCardsToMatch %d numberOfChosenCards %d" , self.numberOfCardsToMatch, numberOfChosenCards]);
                     if (numberOfChosenCards == self.numberOfCardsToMatch){
-//                        NSLog(@"chooseCardAtIndex1.5");
                         break;
                     }
                 }
             }
-            NSLog(@"%@", [NSString stringWithFormat:@"chooseCardAtIndex2 %ld", numberOfChosenCards]);
-            for (Card *otherCard in otherChosenCards){
-                NSLog(@"%@", [NSString stringWithFormat:@"chooseCardAtIndex2.1 %@ chosen %d matched %d", otherCard.contents, otherCard.chosen, otherCard.matched]);
-            }
+            NSMutableArray * allChosenCards = [[NSMutableArray alloc] init];
+            [allChosenCards addObject:card];
+            [allChosenCards addObjectsFromArray:otherChosenCards];
+//            for (Card *otherCard in otherChosenCards){
+//                NSLog(@"%@", [NSString stringWithFormat:@"chooseCardAtIndex2.1 %@ chosen %d matched %d", otherCard.contents, otherCard.chosen, otherCard.matched]);
+//            }
             if (numberOfChosenCards == self.numberOfCardsToMatch){
-                NSLog(@"chooseCardAtIndex3");
+//                NSLog(@"chooseCardAtIndex3");
                 int matchScore = [card match:otherChosenCards];
-                NSLog(@"%@", [NSString stringWithFormat:@"chooseCardAtIndex3.1 match score %d ", matchScore]);
+//                NSLog(@"%@", [NSString stringWithFormat:@"chooseCardAtIndex3.1 match score %d ", matchScore]);
                 if (matchScore){
-                    NSLog(@"chooseCardAtIndex3.2");
-                        self.score += matchScore * MATCH_BONUS;
-                        card.matched = YES;
-                        for (Card *otherCard in otherChosenCards){
+                    
+//                    NSLog(@"chooseCardAtIndex3.2");
+                    self.score += matchScore * MATCH_BONUS;
+                    self.lastMoveScoreDetails = [self detailedScore:matchScore * MATCH_BONUS
+                                                         usingCards:allChosenCards
+                                                        usingReason:@"cards matched"];
+                    card.matched = YES;
+                    for (Card *otherCard in otherChosenCards){
                             otherCard.matched = YES;
                         }
                 } else {
                     self.score -= MISSMATCH_PENALTY;
+                    self.lastMoveScoreDetails = [self detailedScore:-MISSMATCH_PENALTY
+                                                         usingCards:allChosenCards
+                                                        usingReason:@"cards did not match"];
                     for (Card *otherCard in otherChosenCards){
                         otherCard.chosen = NO;
                     }
@@ -123,6 +138,7 @@ static const int COST_TO_CHOOSE = 1;
         }
         NSLog(@"chooseCardAtIndex5");
         self.score -= COST_TO_CHOOSE;
+        self.lastMoveScoreDetails = [NSString stringWithFormat:@ "%@Paying %d for choosing card %@.", self.lastMoveScoreDetails, -COST_TO_CHOOSE, card.contents];
         card.chosen = YES;
         NSLog(@"chooseCardAtIndex6");
         for (Card *otherCard in self.cards){
