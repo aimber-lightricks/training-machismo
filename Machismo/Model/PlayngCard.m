@@ -26,9 +26,7 @@
         NSLog(@"%@", [NSString stringWithFormat:@"PlaynyCard2 otheCard %@ ", otherCard]);
         
         if (self.rank == otherCard.rank){
-            NSLog([NSString stringWithFormat:@"Playng card score before: %d", score]);
             score += 4;
-            NSLog([NSString stringWithFormat:@"Playng card score before: %d", score]);
         }
         if ([self.suit isEqualToString: otherCard.suit]) score += 1;
     }

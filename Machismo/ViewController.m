@@ -31,7 +31,6 @@
 
 - (IBAction)cardMatchModeChanged:(id)sender {
     self.game.numberOfCardsToMatch = self.numberOfMatchesMode;
-    NSLog([NSString localizedStringWithFormat:@"numberOfMatchesMode %d", self.numberOfMatchesMode ]);
 }
 
 - (IBAction)restartGameButton:(UIButton *)sender {
