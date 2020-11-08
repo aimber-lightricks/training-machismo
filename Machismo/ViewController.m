@@ -12,11 +12,13 @@
 #import "PlayingCardAttributedDescription.h"
 #import "CardMatchingGame.h"
 #import "GamesViewControllersCommon.h"
+#import "HistoryViewController.h"
 
 @interface ViewController ()
 @property (strong, nonatomic) Deck *deck;
 @property (strong, nonatomic) CardMatchingGame *game;
 @property (strong, nonatomic) GamesViewControllersCommon * gamesViewControllersCommon;
+@property (strong, nonatomic) NSMutableArray *historyArray;
 @property (nonatomic) NSInteger numberOfMatchesMode;
 @property (strong, nonatomic) IBOutletCollection(UIButton) NSArray *cardButtons;
 @property (weak, nonatomic) IBOutlet UILabel *scoreLable;
@@ -44,7 +46,7 @@
 }
 
 - (CardMatchingGame *)createNewGame{
-    
+  self.historyArray = [[NSMutableArray alloc] init];
     return [[CardMatchingGame alloc] initWithCardCount:[self.cardButtons count]
                                              usingDeck:[self createDeck]
             matchingNumberOfCards:self.numberOfMatchesMode];
@@ -68,6 +70,7 @@
   PlayingCardAttributedDescription * playingCardAttributedDescription  = [[PlayingCardAttributedDescription alloc] init];
   
   NSAttributedString *moveOutcomeDescription = [GamesViewControllersCommon detailedScore:moveResult withCardAttributedDescription:playingCardAttributedDescription];
+  [self.historyArray addObject:moveOutcomeDescription];
   [self updateUI:moveOutcomeDescription];
   
   
@@ -103,4 +106,13 @@
     return [UIImage imageNamed: card.isChosen ? @"CardFront" : @"CardBack"];
 }
 
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+  if ([segue.identifier isEqualToString: @"HistorySegue"]) {
+    if ([segue.destinationViewController isKindOfClass:[HistoryViewController class]]) {
+      HistoryViewController *hvc = (HistoryViewController *)segue.destinationViewController;
+      hvc.historyArray = (NSArray *)self.historyArray;
+    }
+  }
+}
 @end
