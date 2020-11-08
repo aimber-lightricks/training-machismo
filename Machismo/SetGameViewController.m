@@ -6,10 +6,11 @@
 //
 
 #import "SetGameViewController.h"
-#import "SetCardDeck.h"
+
 #import "SetCard.h"
-#import "CardMatchingGame.h"
+#import "SetCardDeck.h"
 #import "SetCardAttributedDescription.h"
+#import "CardMatchingGame.h"
 #import "GamesViewControllersCommon.h"
 
 
@@ -31,7 +32,7 @@
 }
 
 
-- (void) startNewGame {
+- (void)startNewGame {
   
   self.game = [self createNewGame];
   [self updateUI];
@@ -47,17 +48,17 @@
 
 }
 
--(Deck *) createDeck{
+- (Deck *)createDeck{
   return [[SetCardDeck alloc] init];
 }
 
--(Deck *)deck{
+- (Deck *)deck{
     if (!_deck) _deck = [self createDeck];
     return _deck;
 }
 
 
--(CardMatchingGame *)game{
+- (CardMatchingGame *)game{
   
     if (!_game) _game = [self createNewGame];
     return _game;
@@ -75,12 +76,12 @@
 
 }
 
-- (void) updateUI {
+- (void)updateUI {
   NSAttributedString *emptyString = [[NSAttributedString alloc] initWithString:@""];
   [self updateUI:emptyString];
 }
 
-- (void) updateUI:lastMoveDescription{
+- (void)updateUI:lastMoveDescription{
   for (UIButton *cardButton in self.cardButtons){
     NSUInteger cardIndex = [self.cardButtons indexOfObject:cardButton];
     Card *card = [self.game cardAtIndex:cardIndex];
@@ -97,12 +98,12 @@
 }
 
 
-- (NSAttributedString *) titleForCard:(Card *) card{
+- (NSAttributedString *)titleForCard:(Card *)card{
   SetCardAttributedDescription *setCardAttributedDescription = [[SetCardAttributedDescription alloc] initWithCard:card];
   return [setCardAttributedDescription cardAttributedDescription];
 }
 
-- (UIImage *) backgroundForCard:(Card *) card{
+- (UIImage *)backgroundForCard:(Card *)card{
   return [UIImage imageNamed: card.isChosen ? @"CardChosen" : @"CardFront"] ;
 }
 
@@ -110,15 +111,5 @@
 - (IBAction)restartGameButton:(UIButton *)sender {
   [self startNewGame];
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

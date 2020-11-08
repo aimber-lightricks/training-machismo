@@ -6,6 +6,7 @@
 //
 
 #import <Foundation/Foundation.h>
+
 #import "Deck.h"
 #import "Card.h"
 
@@ -34,10 +35,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (struct MoveResult)chooseCardAtIndex:(NSUInteger) index;
 - (Card *) cardAtIndex:(NSUInteger) index;
-@property (nonatomic) NSInteger numberOfCardsToMatch;
 
-@property (nonatomic, readonly) NSInteger score;
-@property (nonatomic, readonly) NSString *lastMoveScoreDetails;
+@property (nonatomic) NSInteger numberOfCardsToMatch;
+@property (readonly, nonatomic) NSInteger score;
+@property (readonly, nonatomic) NSString *lastMoveScoreDetails;
 
 @end
 

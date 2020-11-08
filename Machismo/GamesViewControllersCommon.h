@@ -6,14 +6,13 @@
 //
 
 #import <Foundation/Foundation.h>
+
 #import "Card.h"
 #import "CardMatchingGame.h"
 #import "CardAttributedDescription.h"
 NS_ASSUME_NONNULL_BEGIN
 
 @interface GamesViewControllersCommon : NSObject
-
-
 
 + (NSAttributedString *)detailedScore:(struct MoveResult) moveResult withCardAttributedDescription: (CardAttributedDescription *) cardAttributedDescription;
 

@@ -6,17 +6,17 @@
 //
 
 #import "SetCard.h"
-static const int SET_SCORE = 1;
+static const int kSetScore = 1;
 
 @implementation SetCard
 
-- (id) getAttributeFromNSString: (NSString *) attributeString {
+- (id) getAttributeFromNSString:(NSString *)attributeString {
   return [self valueForKey:attributeString];
 }
 
 
 
-- (BOOL)isSet: (NSArray *)otherCards forAttribute: (NSString *) attributeString {
+- (BOOL)isSet: (NSArray *)otherCards forAttribute:(NSString *)attributeString {
   NSMutableSet * attributeSet = [[NSMutableSet alloc] init];
   [attributeSet addObject: [self getAttributeFromNSString:attributeString]];
   for (SetCard *otherCard in otherCards){
@@ -29,7 +29,7 @@ static const int SET_SCORE = 1;
 }
 
 
-- (BOOL) isSet: (NSArray *) otherCards {
+- (BOOL)isSet:(NSArray *)otherCards {
   for (NSString *attributeString in [SetCard validAttributeStrings]){
     if (![self isSet:otherCards forAttribute:attributeString]){
       return NO;
@@ -40,16 +40,16 @@ static const int SET_SCORE = 1;
 
 - (int)match:(NSArray *)otherCards{
   if (![self isSet:otherCards]) return 0;
-  return SET_SCORE;
+  return kSetScore;
     
 }
 
-- (NSString *)contents{
+- (NSString *)contents {
   return nil;
 }
 @synthesize shape = _shape;
 
-+ (NSArray*) validSahpes {
++ (NSArray*)validSahpes {
     return @[@"◼︎", @"▲", @"●"];
 }
 
@@ -59,42 +59,42 @@ static const int SET_SCORE = 1;
     }
 }
 
-- (NSString *)shape{
+- (NSString *)shape {
     return  _shape ? _shape : [[SetCard validSahpes] firstObject];
 }
 
 @synthesize color = _color;
 
-+ (NSArray*) validColors {
++ (NSArray*)validColors {
     return @[@"red", @"blue", @"black"];
 }
 
-- (void)setColor:(NSString *)color{
+- (void)setColor:(NSString *)color {
     if ([[SetCard validColors] containsObject:color]){
         _color = color;
     }
 }
 
-- (NSString *)color{
+- (NSString *)color {
     return  _color ? _color : [[SetCard validColors] firstObject];
 }
 
 
 @synthesize shading = _shading;
 
-- (void)setShading:(NSNumber *)shading{
+- (void)setShading:(NSNumber *)shading {
     if (([shading floatValue] < 1) && ([shading floatValue] > 0)){
         _shading = shading;
     }
 }
 
-- (NSNumber *)shading{
+- (NSNumber *)shading {
     return  _shading ? _shading : [NSNumber numberWithFloat:1];
 }
 
 
 
-+ (NSArray *) validAttributeStrings {
++ (NSArray *)validAttributeStrings {
   return @[@"shape", @"color", @"shading"];
 }
 

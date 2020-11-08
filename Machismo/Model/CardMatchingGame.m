@@ -6,19 +6,20 @@
 //
 
 #import "CardMatchingGame.h"
-static const int MISSMATCH_PENALTY = 1;
-static const int MATCH_BONUS = 4;
-static const int COST_TO_CHOOSE = 1;
+
+static const int kMissMatchPenalty = 1;
+static const int kMatchBonus = 4;
+static const int kCostToChoose = 1;
 
 
 @interface CardMatchingGame()
-@property (nonatomic, readwrite) NSInteger score;
-@property (nonatomic, strong) NSMutableArray *cards; //of Card
+@property (readwrite, nonatomic) NSInteger score;
+@property (strong, nonatomic) NSMutableArray *cards; //of Card
 @end
 
 @implementation CardMatchingGame
 
--(void)setNumberOfCardsToMatch:(NSInteger)numberOfCardsToMatch{
+- (void)setNumberOfCardsToMatch:(NSInteger)numberOfCardsToMatch {
     BOOL cleanCards = YES;
     for (Card *card in self.cards)
         if (card.isChosen || card.isMatched){
@@ -35,7 +36,7 @@ static const int COST_TO_CHOOSE = 1;
     return _cards;
 }
 
-- (instancetype)initWithCardCount:(NSUInteger)count usingDeck:(Deck *)deck{
+- (instancetype)initWithCardCount:(NSUInteger)count usingDeck:(Deck *)deck {
     self = [super init];
     if (self){
         for (NSInteger i=0; i < count; i++){
@@ -52,20 +53,18 @@ static const int COST_TO_CHOOSE = 1;
     return self;
 }
 
--(instancetype)initWithCardCount:(NSUInteger)count usingDeck:(Deck *)deck matchingNumberOfCards:(NSInteger)numOfCardsToMatch{
+- (instancetype)initWithCardCount:(NSUInteger)count usingDeck:(Deck *)deck matchingNumberOfCards:(NSInteger)numOfCardsToMatch {
     self = [self initWithCardCount:count usingDeck:deck];
     if (self) self.numberOfCardsToMatch = numOfCardsToMatch;
     return self;
     
 }
 
-- (Card *)cardAtIndex:(NSUInteger)index{
+- (Card *)cardAtIndex:(NSUInteger)index {
     return index < [self.cards count] ? self.cards[index] : nil;
 }
 
-
-
--(struct MoveResult)chooseCardAtIndex:(NSUInteger)index{
+- (struct MoveResult)chooseCardAtIndex:(NSUInteger)index {
   
   struct MoveResult moveResult;
   moveResult.moveOutcome = NoMatchingRequired;
@@ -100,9 +99,9 @@ static const int COST_TO_CHOOSE = 1;
         int matchScore = [card match:otherChosenCards];
         if (matchScore){
           
-          self.score += matchScore * MATCH_BONUS;
+          self.score += matchScore * kMatchBonus;
           moveResult.moveOutcome = Matched;
-          moveResult.moveScore = matchScore * MATCH_BONUS;
+          moveResult.moveScore = matchScore * kMatchBonus;
           
           //                  self.lastMoveScoreDetails = [self detailedScore:matchScore * MATCH_BONUS
           //                                                         usingCards:allChosenCards
@@ -112,21 +111,17 @@ static const int COST_TO_CHOOSE = 1;
             otherCard.matched = YES;
           }
         } else {
-          self.score -= MISSMATCH_PENALTY;
+          self.score -= kMissMatchPenalty;
           moveResult.moveOutcome = DidNotMatch;
-          moveResult.moveScore = -MISSMATCH_PENALTY;
-//          self.lastMoveScoreDetails = [self detailedScore:-MISSMATCH_PENALTY
-//                                               usingCards:allChosenCards
-//                                              usingReason:@"cards did not match"];
-          for (Card *otherCard in otherChosenCards){
+          moveResult.moveScore = -kMissMatchPenalty;
+          for (Card *otherCard in otherChosenCards) {
             otherCard.chosen = NO;
           }
         }
       }
     }
-    self.score -= COST_TO_CHOOSE;
-    moveResult.movePenalty = COST_TO_CHOOSE;
-//    self.lastMoveScoreDetails = [NSString stringWithFormat:@ "%@Paying %d for choosing card %@.", self.lastMoveScoreDetails, -COST_TO_CHOOSE, card.contents];
+    self.score -= kCostToChoose;
+    moveResult.movePenalty = kCostToChoose;
     card.chosen = YES;
     
   } else {

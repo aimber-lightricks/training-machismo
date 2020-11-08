@@ -6,11 +6,12 @@
 //
 
 #import "ViewController.h"
-#import "PlayngCardDeck.h"
+
 #import "Card.h"
+#import "PlayngCardDeck.h"
+#import "PlayingCardAttributedDescription.h"
 #import "CardMatchingGame.h"
 #import "GamesViewControllersCommon.h"
-#import "PlayingCardAttributedDescription.h"
 
 @interface ViewController ()
 @property (strong, nonatomic) Deck *deck;
@@ -36,14 +37,11 @@
     self.game.numberOfCardsToMatch = self.numberOfMatchesMode;
 }
 
-
-
 - (IBAction)restartGameButton:(UIButton *)sender {
     self.game = [self createNewGame];
     [self updateUI];
     [self.cardMatchModeSegmentControl setEnabled:YES];
 }
-
 
 - (CardMatchingGame *)createNewGame{
     
@@ -54,12 +52,12 @@
 
 }
 
--(CardMatchingGame *)game{
+- (CardMatchingGame *)game{
     if (!_game) _game = [self createNewGame];
     return _game;
 }
 
-- (Deck *) createDeck{
+- (Deck *)createDeck{
     return [[PlayngCardDeck alloc] init];
 }
 
@@ -75,13 +73,13 @@
   
 }
 
-- (void) updateUI {
+- (void)updateUI {
   NSAttributedString *emptyString = [[NSAttributedString alloc] initWithString:@""];
   [self updateUI:emptyString];
 }
 
 
-- (void) updateUI: (NSAttributedString *) lastMoveDescription {
+- (void)updateUI:(NSAttributedString *)lastMoveDescription {
   for (UIButton *cardButton in self.cardButtons){
     NSUInteger cardIndex = [self.cardButtons indexOfObject:cardButton];
     Card *card = [self.game cardAtIndex:cardIndex];
@@ -96,14 +94,13 @@
 
 }
 
-- (NSAttributedString *) titleForCard:(Card *) card{
+- (NSAttributedString *)titleForCard:(Card *) card{
   PlayingCardAttributedDescription *playingCardAttributedDescription = [[PlayingCardAttributedDescription alloc] initWithCard:card];
   return card.isChosen ? [playingCardAttributedDescription cardAttributedDescription] : (NSAttributedString *)@"";
 }
 
-- (UIImage *) backgroundForCard:(Card *) card{
+- (UIImage *)backgroundForCard:(Card *) card{
     return [UIImage imageNamed: card.isChosen ? @"CardFront" : @"CardBack"];
 }
-
 
 @end

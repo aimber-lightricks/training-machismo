@@ -12,7 +12,5 @@ NS_ASSUME_NONNULL_BEGIN
 @interface SetCardAttributedDescription : CardAttributedDescription
 
 
-
-
 @end
 NS_ASSUME_NONNULL_END

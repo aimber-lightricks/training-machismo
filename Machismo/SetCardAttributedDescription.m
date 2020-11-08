@@ -4,10 +4,12 @@
 //
 //  Created by Ariel Imber on 08/11/2020.
 //
+#import "SetCardAttributedDescription.h"
 
 #import <UIKit/UIKit.h>
-#import "SetCardAttributedDescription.h"
+
 #import "SetCard.h"
+
 #define UIColorFromRGB(rgbValue, alphaValue) \
 [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 \
                 green:((float)((rgbValue & 0x00FF00) >>  8))/255.0 \
@@ -32,7 +34,7 @@
   
 }
 
-- (int) colorNameToHex: (NSString*) colorName {
+- (int)colorNameToHex:(NSString*)colorName {
   if ([colorName isEqualToString:@"red"]) return 0xFF0000;
   if ([colorName isEqualToString:@"green"]) return 0x008000;
   if ([colorName isEqualToString:@"blue"]) return 0x0000FF;

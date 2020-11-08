@@ -10,11 +10,12 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface PlayngCard : Card
-@property (strong, nonatomic) NSString *suit;
-@property (nonatomic) NSUInteger rank;
 
 + (NSArray *)validSuits;
 + (NSUInteger)maxRank;
+
+@property (strong, nonatomic) NSString *suit;
+@property (nonatomic) NSUInteger rank;
 
 @end
 

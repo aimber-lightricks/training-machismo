@@ -13,7 +13,7 @@
 
 @implementation CardAttributedDescription
 
--(instancetype)initWithCard:(Card *)card{
+- (instancetype)initWithCard:(Card *)card{
   self = [super init];
   if (self){
     self.card = card;

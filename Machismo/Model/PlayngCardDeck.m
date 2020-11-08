@@ -6,11 +6,12 @@
 //
 
 #import "PlayngCardDeck.h"
+
 #import "PlayngCard.h"
 
 @implementation PlayngCardDeck
 
-- (instancetype)init{
+- (instancetype)init {
     self = [super init];
     if (self){
         for (NSString *suit in [PlayngCard validSuits]){

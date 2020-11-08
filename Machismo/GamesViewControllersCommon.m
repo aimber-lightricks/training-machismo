@@ -6,13 +6,14 @@
 //
 
 #import "GamesViewControllersCommon.h"
+
 #import "CardAttributedDescription.h"
 
 
 @implementation GamesViewControllersCommon
 
 
-+ (NSString*)moveOutcomeToString:(MoveOutcome) moveOutcome {
++ (NSString*)moveOutcomeToString:(MoveOutcome)moveOutcome {
     NSString *result = nil;
 
     switch(moveOutcome) {
@@ -36,7 +37,7 @@
 }
 
 
-+ (NSAttributedString *) cardsDescription: (NSArray *)cards withCardAttributedDescription: (CardAttributedDescription *) cardAttributedDescription{
++ (NSAttributedString *)cardsDescription:(NSArray *)cards withCardAttributedDescription:(CardAttributedDescription *)cardAttributedDescription{
   
   
   NSMutableAttributedString  *cardsDescriptionString = [[NSMutableAttributedString alloc] initWithString:@""];
@@ -55,7 +56,7 @@
 
 
 
-+ (NSAttributedString *)detailedScore:(struct MoveResult) moveResult withCardAttributedDescription: (CardAttributedDescription *) cardAttributedDescription{
++ (NSAttributedString *)detailedScore:(struct MoveResult) moveResult withCardAttributedDescription: (CardAttributedDescription *)cardAttributedDescription{
   
   NSMutableAttributedString  *detailedScoreStr = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat: @"Move score is %ld", (long)moveResult.moveScore]];
   

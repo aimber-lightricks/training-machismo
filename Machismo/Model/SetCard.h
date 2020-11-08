@@ -10,13 +10,13 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface SetCard : Card
-@property (nonatomic, strong) NSString *shape;
-@property (nonatomic, strong) NSString *color;
-@property (nonatomic, strong) NSNumber *shading;
 
 + (NSArray*) validSahpes;
 + (NSArray*) validColors;
 
+@property (nonatomic, strong) NSString *shape;
+@property (nonatomic, strong) NSString *color;
+@property (nonatomic, strong) NSNumber *shading;
 
 @end
 
