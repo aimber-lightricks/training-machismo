@@ -11,6 +11,10 @@
 		D34D74BD2554AF6F00051B13 /* SetGameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D34D74BC2554AF6F00051B13 /* SetGameViewController.m */; };
 		D34D74C5255703DD00051B13 /* SetCard.m in Sources */ = {isa = PBXBuildFile; fileRef = D34D74C1255703DD00051B13 /* SetCard.m */; };
 		D34D74C6255703DD00051B13 /* SetCardDeck.m in Sources */ = {isa = PBXBuildFile; fileRef = D34D74C2255703DD00051B13 /* SetCardDeck.m */; };
+		D34D74D52557463A00051B13 /* GamesViewControllersCommon.m in Sources */ = {isa = PBXBuildFile; fileRef = D34D74D42557463A00051B13 /* GamesViewControllersCommon.m */; };
+		D34D74DB255757BF00051B13 /* CardAttributedDescription.m in Sources */ = {isa = PBXBuildFile; fileRef = D34D74DA255757BF00051B13 /* CardAttributedDescription.m */; };
+		D34D74E125575A1A00051B13 /* PlayingCardAttributedDescription.m in Sources */ = {isa = PBXBuildFile; fileRef = D34D74E025575A1A00051B13 /* PlayingCardAttributedDescription.m */; };
+		D394F3EA25575B870028D2D5 /* SetCardAttributedDescription.m in Sources */ = {isa = PBXBuildFile; fileRef = D394F3E925575B870028D2D5 /* SetCardAttributedDescription.m */; };
 		D3ABCC552546CC7300005FAB /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D3ABCC542546CC7300005FAB /* AppDelegate.m */; };
 		D3ABCC582546CC7300005FAB /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D3ABCC572546CC7300005FAB /* SceneDelegate.m */; };
 		D3ABCC5B2546CC7300005FAB /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D3ABCC5A2546CC7300005FAB /* ViewController.m */; };
@@ -52,6 +56,14 @@
 		D34D74C2255703DD00051B13 /* SetCardDeck.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SetCardDeck.m; sourceTree = "<group>"; };
 		D34D74C3255703DD00051B13 /* SetCardDeck.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SetCardDeck.h; sourceTree = "<group>"; };
 		D34D74C4255703DD00051B13 /* SetCard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SetCard.h; sourceTree = "<group>"; };
+		D34D74D32557463A00051B13 /* GamesViewControllersCommon.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GamesViewControllersCommon.h; sourceTree = "<group>"; };
+		D34D74D42557463A00051B13 /* GamesViewControllersCommon.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GamesViewControllersCommon.m; sourceTree = "<group>"; };
+		D34D74D9255757BF00051B13 /* CardAttributedDescription.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CardAttributedDescription.h; sourceTree = "<group>"; };
+		D34D74DA255757BF00051B13 /* CardAttributedDescription.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CardAttributedDescription.m; sourceTree = "<group>"; };
+		D34D74DF25575A1A00051B13 /* PlayingCardAttributedDescription.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PlayingCardAttributedDescription.h; sourceTree = "<group>"; };
+		D34D74E025575A1A00051B13 /* PlayingCardAttributedDescription.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PlayingCardAttributedDescription.m; sourceTree = "<group>"; };
+		D394F3E825575B870028D2D5 /* SetCardAttributedDescription.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SetCardAttributedDescription.h; sourceTree = "<group>"; };
+		D394F3E925575B870028D2D5 /* SetCardAttributedDescription.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SetCardAttributedDescription.m; sourceTree = "<group>"; };
 		D3ABCC502546CC7300005FAB /* Machismo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Machismo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D3ABCC532546CC7300005FAB /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		D3ABCC542546CC7300005FAB /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -133,6 +145,14 @@
 				D3ABCC572546CC7300005FAB /* SceneDelegate.m */,
 				D3ABCC592546CC7300005FAB /* ViewController.h */,
 				D3ABCC5A2546CC7300005FAB /* ViewController.m */,
+				D34D74D32557463A00051B13 /* GamesViewControllersCommon.h */,
+				D34D74D42557463A00051B13 /* GamesViewControllersCommon.m */,
+				D34D74D9255757BF00051B13 /* CardAttributedDescription.h */,
+				D34D74DF25575A1A00051B13 /* PlayingCardAttributedDescription.h */,
+				D34D74E025575A1A00051B13 /* PlayingCardAttributedDescription.m */,
+				D394F3E825575B870028D2D5 /* SetCardAttributedDescription.h */,
+				D394F3E925575B870028D2D5 /* SetCardAttributedDescription.m */,
+				D34D74DA255757BF00051B13 /* CardAttributedDescription.m */,
 				D3ABCC5C2546CC7300005FAB /* Main.storyboard */,
 				D34D74BB2554AF6F00051B13 /* SetGameViewController.h */,
 				D34D74BC2554AF6F00051B13 /* SetGameViewController.m */,
@@ -323,16 +343,20 @@
 			buildActionMask = 2147483647;
 			files = (
 				D3ABCCC725470D0100005FAB /* PlayngCard.m in Sources */,
+				D34D74D52557463A00051B13 /* GamesViewControllersCommon.m in Sources */,
 				D3ABCCCD2547D8B400005FAB /* Deck.m in Sources */,
 				D3ABCCB92547090C00005FAB /* Card.m in Sources */,
 				D3100D9C25494686004B01DE /* CardMatchingGame.m in Sources */,
 				D3ABCC5B2546CC7300005FAB /* ViewController.m in Sources */,
 				D34D74C5255703DD00051B13 /* SetCard.m in Sources */,
 				D3ABCC552546CC7300005FAB /* AppDelegate.m in Sources */,
+				D34D74E125575A1A00051B13 /* PlayingCardAttributedDescription.m in Sources */,
 				D3ABCC662546CC7400005FAB /* main.m in Sources */,
 				D3ABCC582546CC7300005FAB /* SceneDelegate.m in Sources */,
+				D394F3EA25575B870028D2D5 /* SetCardAttributedDescription.m in Sources */,
 				D34D74C6255703DD00051B13 /* SetCardDeck.m in Sources */,
 				D3ABCCD32547DE3B00005FAB /* PlayngCardDeck.m in Sources */,
+				D34D74DB255757BF00051B13 /* CardAttributedDescription.m in Sources */,
 				D34D74BD2554AF6F00051B13 /* SetGameViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

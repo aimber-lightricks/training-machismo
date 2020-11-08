@@ -9,10 +9,13 @@
 #import "PlayngCardDeck.h"
 #import "Card.h"
 #import "CardMatchingGame.h"
+#import "GamesViewControllersCommon.h"
+#import "PlayingCardAttributedDescription.h"
 
 @interface ViewController ()
 @property (strong, nonatomic) Deck *deck;
 @property (strong, nonatomic) CardMatchingGame *game;
+@property (strong, nonatomic) GamesViewControllersCommon * gamesViewControllersCommon;
 @property (nonatomic) NSInteger numberOfMatchesMode;
 @property (strong, nonatomic) IBOutletCollection(UIButton) NSArray *cardButtons;
 @property (weak, nonatomic) IBOutlet UILabel *scoreLable;
@@ -32,6 +35,8 @@
 - (IBAction)cardMatchModeChanged:(id)sender {
     self.game.numberOfCardsToMatch = self.numberOfMatchesMode;
 }
+
+
 
 - (IBAction)restartGameButton:(UIButton *)sender {
     self.game = [self createNewGame];
@@ -59,28 +64,41 @@
 }
 
 - (IBAction)touchCardButton:(UIButton *)sender {
-    [self.cardMatchModeSegmentControl setEnabled:NO];
-    NSUInteger chosenButtonIndex  = [self.cardButtons indexOfObject:sender];
-    [self.game chooseCardAtIndex:chosenButtonIndex];
-    [self updateUI];
- 
-    
+  [self.cardMatchModeSegmentControl setEnabled:NO];
+  NSUInteger chosenButtonIndex  = [self.cardButtons indexOfObject:sender];
+  struct MoveResult moveResult = [self.game chooseCardAtIndex:chosenButtonIndex];
+  PlayingCardAttributedDescription * playingCardAttributedDescription  = [[PlayingCardAttributedDescription alloc] init];
+  
+  NSAttributedString *moveOutcomeDescription = [GamesViewControllersCommon detailedScore:moveResult withCardAttributedDescription:playingCardAttributedDescription];
+  [self updateUI:moveOutcomeDescription];
+  
+  
 }
 
-- (void) updateUI{
-    for (UIButton *cardButton in self.cardButtons){
-        NSUInteger cardIndex = [self.cardButtons indexOfObject:cardButton];
-        Card *card = [self.game cardAtIndex:cardIndex];
-        [cardButton setBackgroundImage: [self backgroundForCard:card] forState:UIControlStateNormal];
-        [cardButton setTitle:[self titleForCard:card] forState:UIControlStateNormal];
-        cardButton.enabled = !card.isMatched;
-        self.scoreLable.text = [NSString stringWithFormat:@"Score: %d", (int)self.game.score];
-        self.lastMoveLable.text = [NSString stringWithFormat:@"Last move: %@", self.game.lastMoveScoreDetails];
-    }
+- (void) updateUI {
+  NSAttributedString *emptyString = [[NSAttributedString alloc] initWithString:@""];
+  [self updateUI:emptyString];
 }
 
-- (NSString *) titleForCard:(Card *) card{
-    return card.isChosen ? card.contents : @"";
+
+- (void) updateUI: (NSAttributedString *) lastMoveDescription {
+  for (UIButton *cardButton in self.cardButtons){
+    NSUInteger cardIndex = [self.cardButtons indexOfObject:cardButton];
+    Card *card = [self.game cardAtIndex:cardIndex];
+    [cardButton setBackgroundImage: [self backgroundForCard:card] forState:UIControlStateNormal];
+    [cardButton setAttributedTitle: [self titleForCard:card] forState:UIControlStateNormal];
+    cardButton.enabled = !card.isMatched;
+  }
+  self.scoreLable.text = [NSString stringWithFormat:@"Score: %d", (int)self.game.score];
+  NSMutableAttributedString *fullLastMoveDescription = [[NSMutableAttributedString alloc] initWithString:@"Last move: "];
+  [fullLastMoveDescription appendAttributedString:lastMoveDescription];
+  self.lastMoveLable.attributedText = fullLastMoveDescription;
+
+}
+
+- (NSAttributedString *) titleForCard:(Card *) card{
+  PlayingCardAttributedDescription *playingCardAttributedDescription = [[PlayingCardAttributedDescription alloc] initWithCard:card];
+  return card.isChosen ? [playingCardAttributedDescription cardAttributedDescription] : (NSAttributedString *)@"";
 }
 
 - (UIImage *) backgroundForCard:(Card *) card{

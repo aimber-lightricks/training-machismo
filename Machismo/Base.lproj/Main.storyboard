@@ -653,7 +653,7 @@
                                     <color key="titleColor" systemColor="labelColor"/>
                                 </state>
                                 <connections>
-                                    <action selector="restartGameButton:" destination="lnU-jh-qPg" eventType="touchUpInside" id="oes-uU-Bq7"/>
+                                    <action selector="restartGameButton:" destination="lnU-jh-qPg" eventType="touchUpInside" id="yTo-8u-1ql"/>
                                 </connections>
                             </button>
                         </subviews>

@@ -9,12 +9,10 @@
 #import "SetCardDeck.h"
 #import "SetCard.h"
 #import "CardMatchingGame.h"
+#import "SetCardAttributedDescription.h"
+#import "GamesViewControllersCommon.h"
 
-#define UIColorFromRGB(rgbValue, alphaValue) \
-[UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 \
-                green:((float)((rgbValue & 0x00FF00) >>  8))/255.0 \
-                 blue:((float)((rgbValue & 0x0000FF) >>  0))/255.0 \
-                alpha:alphaValue]
+
 
 @interface SetGameViewController ()
 @property (strong, nonatomic) Deck *deck;
@@ -34,6 +32,7 @@
 
 
 - (void) startNewGame {
+  
   self.game = [self createNewGame];
   [self updateUI];
 }
@@ -42,19 +41,24 @@
 - (CardMatchingGame *)createNewGame{
     
     return [[CardMatchingGame alloc] initWithCardCount:[self.cardButtons count]
-                                             usingDeck:self.deck
+                                             usingDeck:[self createDeck]
             matchingNumberOfCards: 3];
     
 
 }
 
+-(Deck *) createDeck{
+  return [[SetCardDeck alloc] init];
+}
+
 -(Deck *)deck{
-    if (!_deck) _deck = [[SetCardDeck alloc] init];
+    if (!_deck) _deck = [self createDeck];
     return _deck;
 }
 
 
 -(CardMatchingGame *)game{
+  
     if (!_game) _game = [self createNewGame];
     return _game;
 }
@@ -62,50 +66,40 @@
 
 - (IBAction)touchCardButton:(id)sender {
   NSUInteger chosenButtonIndex  = [self.cardButtons indexOfObject:sender];
-  [self.game chooseCardAtIndex:chosenButtonIndex];
-  [self updateUI];
+  struct MoveResult moveResult = [self.game chooseCardAtIndex:chosenButtonIndex];
+  SetCardAttributedDescription * setCardAttributedDescription  = [[SetCardAttributedDescription alloc] init];
+  
+  NSAttributedString *moveOutcomeDescription = [GamesViewControllersCommon detailedScore:moveResult withCardAttributedDescription:setCardAttributedDescription];
+  [self updateUI:moveOutcomeDescription];
 
+
+}
+
+- (void) updateUI {
+  NSAttributedString *emptyString = [[NSAttributedString alloc] initWithString:@""];
+  [self updateUI:emptyString];
+}
+
+- (void) updateUI:lastMoveDescription{
+  for (UIButton *cardButton in self.cardButtons){
+    NSUInteger cardIndex = [self.cardButtons indexOfObject:cardButton];
+    Card *card = [self.game cardAtIndex:cardIndex];
+    [cardButton setBackgroundImage: [self backgroundForCard:card] forState:UIControlStateNormal];
+    [cardButton setAttributedTitle: [self titleForCard:card] forState:UIControlStateNormal];
+    cardButton.enabled = !card.isMatched;
+  }
+  self.scoreLable.text = [NSString stringWithFormat:@"Score: %d", (int)self.game.score];
+
+  NSMutableAttributedString *fullLastMoveDescription = [[NSMutableAttributedString alloc] initWithString:@"Last move: "];
+  [fullLastMoveDescription appendAttributedString:lastMoveDescription];
+  self.lastMoveLable.attributedText = fullLastMoveDescription;
   
 }
 
-- (void) updateUI{
-  for (UIButton *cardButton in self.cardButtons){
-      NSUInteger cardIndex = [self.cardButtons indexOfObject:cardButton];
-      Card *card = [self.game cardAtIndex:cardIndex];
-      [cardButton setBackgroundImage: [self backgroundForCard:card] forState:UIControlStateNormal];
-      [cardButton setAttributedTitle:[self titleForCard:card] forState:UIControlStateNormal];
-      
-    cardButton.enabled = !card.isMatched;
-      self.scoreLable.text = [NSString stringWithFormat:@"Score: %d", (int)self.game.score];
-      self.lastMoveLable.text = [NSString stringWithFormat:@"Last move: %@", self.game.lastMoveScoreDetails];
-  }
-}
-
-- (int) colorNameToHex: (NSString*) colorName {
-  if ([colorName isEqualToString:@"red"]) return 0xFF0000;
-  if ([colorName isEqualToString:@"green"]) return 0x008000;
-  if ([colorName isEqualToString:@"blue"]) return 0x0000FF;
-  if ([colorName isEqualToString:@"black"]) return 0x000000;
-
-  return 0x000000; //black is the default
-}
-- (IBAction)restartGameButton:(UIButton *)sender {
-  [self startNewGame];
-}
 
 - (NSAttributedString *) titleForCard:(Card *) card{
-  SetCard *setCard = (SetCard *)card;
-  NSString *cardContent = setCard.shape;
-  NSMutableAttributedString  *cardContentAttributed = [[NSMutableAttributedString alloc] initWithString:cardContent];
-  UIColor *color  = UIColorFromRGB([self colorNameToHex:setCard.color], [setCard.shading floatValue]);
-  
-  [cardContentAttributed addAttributes:@{NSForegroundColorAttributeName : color,
-                                         
-  }
-                                range:NSMakeRange(0, [cardContent length])];
-  
-////  card.isChosen ? card.contents : @""
-  return (NSAttributedString *)cardContentAttributed;
+  SetCardAttributedDescription *setCardAttributedDescription = [[SetCardAttributedDescription alloc] initWithCard:card];
+  return [setCardAttributedDescription cardAttributedDescription];
 }
 
 - (UIImage *) backgroundForCard:(Card *) card{
@@ -113,6 +107,9 @@
 }
 
 
+- (IBAction)restartGameButton:(UIButton *)sender {
+  [self startNewGame];
+}
 
 /*
 #pragma mark - Navigation

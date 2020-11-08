@@ -9,6 +9,22 @@
 #import "Deck.h"
 #import "Card.h"
 
+typedef NS_ENUM(NSUInteger, MoveOutcome) {
+  NoMatchingRequired,
+  Matched,
+  DidNotMatch,
+  FlippedCard,
+  AlreadyMatched
+
+};
+
+struct MoveResult {
+  MoveOutcome moveOutcome;
+  NSInteger moveScore;
+  NSInteger movePenalty;
+  NSArray * _Nonnull moveCards;
+};
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface CardMatchingGame : NSObject
@@ -16,7 +32,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (instancetype)initWithCardCount:(NSUInteger) count usingDeck:(Deck *) deck;
 - (instancetype)initWithCardCount:(NSUInteger) count usingDeck:(Deck *) deck matchingNumberOfCards:(NSInteger) numOfCardsToMatch;
 
-- (void)chooseCardAtIndex:(NSUInteger) index;
+- (struct MoveResult)chooseCardAtIndex:(NSUInteger) index;
 - (Card *) cardAtIndex:(NSUInteger) index;
 @property (nonatomic) NSInteger numberOfCardsToMatch;
 
